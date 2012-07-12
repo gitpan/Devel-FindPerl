@@ -1,4 +1,7 @@
 Revision history for Devel-FindPerl
 
+0.002     2012-07-12 18:46:33 Europe/Bucharest
+          Get rid of Capture::Tiny dependency
+
 0.001     2012-06-20 20:37:18 Europe/Amsterdam
-    -
+          Initial release

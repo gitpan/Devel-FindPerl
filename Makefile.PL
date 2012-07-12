@@ -12,6 +12,7 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "Find the path to your perl",
   "AUTHOR" => "Leon Timmermans <leont\@cpan.org>, Randy Sims <randys\@thepierianspring.org>",
   "BUILD_REQUIRES" => {
+    "Capture::Tiny" => 0,
     "Config" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
@@ -25,7 +26,6 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Devel::FindPerl",
   "PREREQ_PM" => {
-    "Capture::Tiny" => 0,
     "Carp" => 0,
     "Cwd" => 0,
     "Exporter" => "5.57",
@@ -34,7 +34,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }

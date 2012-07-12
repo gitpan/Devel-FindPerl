@@ -21,7 +21,6 @@
       },
       "runtime" : {
          "requires" : {
-            "Capture::Tiny" : "0",
             "Carp" : "0",
             "Cwd" : "0",
             "Exporter" : "5.57",
@@ -34,6 +33,7 @@
       },
       "test" : {
          "requires" : {
+            "Capture::Tiny" : "0",
             "Config" : "0",
             "File::Find" : "0",
             "File::Temp" : "0",
@@ -53,6 +53,6 @@
          "web" : "http://github.com/Leont/devel-findperl"
       }
    },
-   "version" : "0.001"
+   "version" : "0.002"
 }
 
