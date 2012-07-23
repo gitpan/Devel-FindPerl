@@ -26,6 +26,7 @@
             "Exporter" : "5.57",
             "ExtUtils::Config" : "0",
             "File::Spec" : "0",
+            "IPC::Open2" : "0",
             "perl" : "5.006",
             "strict" : "0",
             "warnings" : "0"
@@ -53,6 +54,6 @@
          "web" : "http://github.com/Leont/devel-findperl"
       }
    },
-   "version" : "0.002"
+   "version" : "0.003"
 }
 

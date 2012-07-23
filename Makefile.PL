@@ -31,10 +31,11 @@ my %WriteMakefileArgs = (
     "Exporter" => "5.57",
     "ExtUtils::Config" => 0,
     "File::Spec" => 0,
+    "IPC::Open2" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.002",
+  "VERSION" => "0.003",
   "test" => {
     "TESTS" => "t/*.t"
   }
