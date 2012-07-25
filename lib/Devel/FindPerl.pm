@@ -1,6 +1,6 @@
 package Devel::FindPerl;
 {
-  $Devel::FindPerl::VERSION = '0.003';
+  $Devel::FindPerl::VERSION = '0.004';
 }
 use strict;
 use warnings;
@@ -113,6 +113,7 @@ sub _perl_is_same {
 	push @cmd, qw(-MConfig=myconfig -e print -e myconfig);
 
 	my $pid = open2(my($in, $out), @cmd);
+	binmode $in, ':crlf' if $^O eq 'MSWin32';
 	my $ret = do { local $/; <$in> };
 	waitpid $pid, 0;
 	return $ret eq Config->myconfig;
@@ -132,7 +133,7 @@ Devel::FindPerl - Find the path to your perl
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 DESCRIPTION
 
