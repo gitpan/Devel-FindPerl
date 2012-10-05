@@ -4,7 +4,7 @@
       "Leon Timmermans <leont@cpan.org>, Randy Sims <randys@thepierianspring.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300016, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300021, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -25,6 +25,7 @@
             "Cwd" : "0",
             "Exporter" : "5.57",
             "ExtUtils::Config" : "0",
+            "File::Basename" : "0",
             "File::Spec" : "0",
             "IPC::Open2" : "0",
             "perl" : "5.006",
@@ -54,6 +55,6 @@
          "web" : "http://github.com/Leont/devel-findperl"
       }
    },
-   "version" : "0.004"
+   "version" : "0.005"
 }
 

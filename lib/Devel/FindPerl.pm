@@ -1,6 +1,6 @@
 package Devel::FindPerl;
 {
-  $Devel::FindPerl::VERSION = '0.004';
+  $Devel::FindPerl::VERSION = '0.005';
 }
 use strict;
 use warnings;
@@ -11,6 +11,7 @@ our @EXPORT_OK = qw/find_perl_interpreter/;
 use Carp;
 use Cwd;
 use ExtUtils::Config;
+use File::Basename;
 use File::Spec;
 use IPC::Open2;
 
@@ -133,7 +134,7 @@ Devel::FindPerl - Find the path to your perl
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 DESCRIPTION
 

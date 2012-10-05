@@ -1,5 +1,8 @@
 Revision history for Devel-FindPerl
 
+0.005     2012-10-06 00:14:49 Europe/Amsterdam
+          Explicitly load File::Basename
+
 0.004     2012-07-26 00:40:10 Europe/Bucharest
           Make sure myconfig is read in text-mode on Windows
 
