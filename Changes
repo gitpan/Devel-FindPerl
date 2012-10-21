@@ -1,5 +1,9 @@
 Revision history for Devel-FindPerl
 
+0.006     2012-10-21 15:32:06 Europe/Amsterdam
+          Cache the results of find_perl_interpreter
+          Don't try absolute path twice
+
 0.005     2012-10-06 00:14:49 Europe/Amsterdam
           Explicitly load File::Basename
 

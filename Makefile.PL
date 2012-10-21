@@ -29,14 +29,14 @@ my %WriteMakefileArgs = (
     "Carp" => 0,
     "Cwd" => 0,
     "Exporter" => "5.57",
-    "ExtUtils::Config" => 0,
+    "ExtUtils::Config" => "0.007",
     "File::Basename" => 0,
-    "File::Spec" => 0,
+    "File::Spec::Functions" => 0,
     "IPC::Open2" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.005",
+  "VERSION" => "0.006",
   "test" => {
     "TESTS" => "t/*.t"
   }

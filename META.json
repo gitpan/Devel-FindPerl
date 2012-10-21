@@ -24,9 +24,9 @@
             "Carp" : "0",
             "Cwd" : "0",
             "Exporter" : "5.57",
-            "ExtUtils::Config" : "0",
+            "ExtUtils::Config" : "0.007",
             "File::Basename" : "0",
-            "File::Spec" : "0",
+            "File::Spec::Functions" : "0",
             "IPC::Open2" : "0",
             "perl" : "5.006",
             "strict" : "0",
@@ -55,6 +55,6 @@
          "web" : "http://github.com/Leont/devel-findperl"
       }
    },
-   "version" : "0.005"
+   "version" : "0.006"
 }
 
