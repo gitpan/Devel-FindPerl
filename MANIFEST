@@ -10,6 +10,6 @@ dist.ini
 lib/Devel/FindPerl.pm
 t/00-compile.t
 t/10-basics.t
-t/release-kwalitee.t
+t/11-tainted.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t

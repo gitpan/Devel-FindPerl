@@ -1,24 +1,26 @@
 package Devel::FindPerl;
 {
-  $Devel::FindPerl::VERSION = '0.006';
+  $Devel::FindPerl::VERSION = '0.007';
 }
 use strict;
 use warnings;
 
 use Exporter 5.57 'import';
-our @EXPORT_OK = qw/find_perl_interpreter/;
+our @EXPORT_OK = qw/find_perl_interpreter perl_is_same/;
+our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 use Carp q/carp/;
+use Config;
 use Cwd q/realpath/;
-use ExtUtils::Config 0.007;
 use File::Basename qw/basename dirname/;
 use File::Spec::Functions qw/catfile catdir rel2abs file_name_is_absolute updir curdir path/;
+use Scalar::Util 'tainted';
 use IPC::Open2 qw/open2/;
 
 my %perl_for;
 sub find_perl_interpreter {
-	my $config = shift || ExtUtils::Config->new;
-	my $key = $config->serialize;
+	my $config = shift || 'Devel::FindPerl::Config';
+	my $key = $config->can('serialize') ? $config->serialize : '';
 	return $perl_for{$key} ||= _discover_perl_interpreter($config);
 }
 
@@ -32,7 +34,7 @@ sub _discover_perl_interpreter {
 	my @potential_perls;
 
 	# Try 1, Check $^X for absolute path
-	push @potential_perls, file_name_is_absolute($perl) ? $perl : rel2abs($perl);
+	push @potential_perls, file_name_is_absolute($perl) ? $perl : rel2abs($perl) unless tainted($perl);
 
 	# Try 2, Last ditch effort: These two option use hackery to try to locate
 	# a suitable perl. The hack varies depending on whether we are running
@@ -47,7 +49,6 @@ sub _discover_perl_interpreter {
 			my $uninstperl = rel2abs(catfile($perl_src, $perl_basename));
 			push @potential_perls, $uninstperl;
 		}
-
 	}
 	else {
 		# Try 2.B, First look in $Config{perlpath}, then search the user's
@@ -55,7 +56,7 @@ sub _discover_perl_interpreter {
 		# uninstalled perl in a perl source tree.
 
 		push @potential_perls, $config->get('perlpath');
-		push @potential_perls, map { catfile($_, $perl_basename) } path();
+		push @potential_perls, map { catfile($_, $perl_basename) } grep { !tainted($_) } path();
 	}
 
 	# Now that we've enumerated the potential perls, it's time to test
@@ -64,7 +65,7 @@ sub _discover_perl_interpreter {
 	my $exe = $config->get('exe_ext');
 	foreach my $thisperl (@potential_perls) {
 		$thisperl .= $exe if length $exe and $thisperl !~ m/$exe$/i;
-		return $thisperl if -f $thisperl && _perl_is_same($thisperl);
+		return $thisperl if -f $thisperl && perl_is_same($thisperl);
 	}
 
 	# We've tried all alternatives, and didn't find a perl that matches
@@ -102,7 +103,7 @@ sub _perl_src {
 	return; # return empty string if $ENV{PERL_CORE} but can't find dir ???
 }
 
-sub _perl_is_same {
+sub perl_is_same {
 	my $perl = shift;
 
 	my @cmd = $perl;
@@ -116,6 +117,7 @@ sub _perl_is_same {
 	push @cmd, '-I' . catdir(dirname($perl), 'lib') if $ENV{PERL_CORE};
 	push @cmd, qw(-MConfig=myconfig -e print -e myconfig);
 
+	local $ENV{PATH} = '' if tainted($ENV{PATH});
 	my $pid = open2(my($in, $out), @cmd);
 	binmode $in, ':crlf' if $^O eq 'MSWin32';
 	my $ret = do { local $/; <$in> };
@@ -123,12 +125,17 @@ sub _perl_is_same {
 	return $ret eq Config->myconfig;
 }
 
+sub Devel::FindPerl::Config::get {
+	my ($self, $key) = @_;
+	return $Config{$key};
+}
+
 1;
 
 #ABSTRACT: Find the path to your perl
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -137,17 +144,50 @@ Devel::FindPerl - Find the path to your perl
 
 =head1 VERSION
 
-version 0.006
+version 0.007
+
+=head1 SYNOPSIS
+
+ use Devel::FindPerl 'find_perl_interpreter';
+ system find_perl_interpreter, '-e', '...';
 
 =head1 DESCRIPTION
 
-This module tries to find the path to the currently running perl.
+This module tries to find the path to the currently running perl. It (optionally) exports the following functions:
 
 =head1 FUNCTIONS
 
 =head2 find_perl_interpreter($config = ExtUtils::Config->new)
 
 This function will try really really hard to find the path to the perl running your program. I should be able to find it in most circumstances. Note that the result of this function will be cached for any serialized value of C<$config>.
+
+=head2 perl_is_same($path)
+
+Tests if the perl in C<$path> is the same perl as the currently running one.
+
+=head1 SECURITY
+
+This module by default does things that are not particularly secure (run programs based on external input). In tainted mode, it will try to avoid any insecure action, but that may affect its ability to find the perl executable.
+
+=head1 SEE ALSO
+
+=over 4
+
+=item * Probe::Perl
+
+This module has much the same purpose as Probe::Perl, in fact the algorithm is mostly the same as both are extracted from L<Module::Build> at different points in time. If I had known about it when I extracted it myself, I probably wouldn't have bothered, but now that I do have it there are a number of reasons for me to prefer Devel::FindPerl over Probe::Perl
+
+=over 4
+
+=item * Separation of concerns. P::P does 4 completely different things (finding perl, managing configuration, categorizing platorms and formatting a perl version. Devel::FindPerl is instead complemented by modules such as L<ExtUtils::Config> and L<Perl::OSType>.
+
+=item * It handles tainting better. In particular, C<find_perl_interpreter> never returns a tainted value, even in tainted mode.
+
+=item * It was written with inclusion in core in mind, though the removal of Module::Build from core after perl 5.20 may make this point moot.
+
+=back
+
+=back
 
 =head1 AUTHOR
 
@@ -161,4 +201,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

@@ -1,5 +1,11 @@
 Revision history for Devel-FindPerl
 
+0.007     2013-10-24 14:32:54 Europe/Amsterdam
+          Soften dependency on ExtUtils::Config
+          Rewrite tests not to depend on Capture::Tiny
+          Export perl_is_same
+          Handle tainting better
+
 0.006     2012-10-21 15:32:06 Europe/Amsterdam
           Cache the results of find_perl_interpreter
           Don't try absolute path twice
