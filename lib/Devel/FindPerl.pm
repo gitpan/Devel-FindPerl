@@ -1,6 +1,6 @@
 package Devel::FindPerl;
 {
-  $Devel::FindPerl::VERSION = '0.007';
+  $Devel::FindPerl::VERSION = '0.008';
 }
 use strict;
 use warnings;
@@ -117,7 +117,7 @@ sub perl_is_same {
 	push @cmd, '-I' . catdir(dirname($perl), 'lib') if $ENV{PERL_CORE};
 	push @cmd, qw(-MConfig=myconfig -e print -e myconfig);
 
-	local $ENV{PATH} = '' if tainted($ENV{PATH});
+	local $ENV{PATH} = '';
 	my $pid = open2(my($in, $out), @cmd);
 	binmode $in, ':crlf' if $^O eq 'MSWin32';
 	my $ret = do { local $/; <$in> };
@@ -144,7 +144,7 @@ Devel::FindPerl - Find the path to your perl
 
 =head1 VERSION
 
-version 0.007
+version 0.008
 
 =head1 SYNOPSIS
 
