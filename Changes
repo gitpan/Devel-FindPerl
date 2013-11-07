@@ -1,5 +1,8 @@
 Revision history for Devel-FindPerl
 
+0.009     2013-11-07 23:00:55 Europe/Amsterdam
+          find_perl_interpreter now return an array
+
 0.008     2013-11-01 17:48:53 Europe/Amsterdam
           Always empty $ENV{PATH} before open2
           Append executable extension to expected tainted path
