@@ -55,7 +55,7 @@
    "provides" : {
       "Devel::FindPerl" : {
          "file" : "lib/Devel/FindPerl.pm",
-         "version" : "0.009"
+         "version" : "0.010"
       }
    },
    "release_status" : "stable",
@@ -70,6 +70,6 @@
          "web" : "https://github.com/Leont/devel-findperl"
       }
    },
-   "version" : "0.009"
+   "version" : "0.010"
 }
 

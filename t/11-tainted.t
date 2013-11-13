@@ -8,7 +8,7 @@ use Test::More;
 use Config;
 use Devel::FindPerl qw/find_perl_interpreter perl_is_same/;
 
-my $perlpath = join '', @Config{qw/perlpath exe_ext/};
+my $perlpath = $Config{perlpath};
 plan(skip_all => 'Taint test can\'t be run from uninstalled perl') if $ENV{PERL_CORE};
 plan(skip_all => 'Taint test can\'t be run for relocatable perl') if $Config{userelocatableinc};
 plan(skip_all => "Perl not in perlpath '$perlpath'") unless -x $perlpath and perl_is_same($perlpath);
@@ -18,6 +18,6 @@ my $interpreter = do {
 	local $SIG{__WARN__} = sub { fail("Got a warning during find_perl_interpreter") };
 	find_perl_interpreter();
 };
-is($interpreter, $perlpath, 'Always find $Config{perlpath} under tainting');
+like($interpreter, qr/\Q$perlpath/, 'Always find $Config{perlpath} under tainting');
 
 done_testing;

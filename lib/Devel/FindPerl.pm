@@ -1,6 +1,6 @@
 package Devel::FindPerl;
 {
-  $Devel::FindPerl::VERSION = '0.009';
+  $Devel::FindPerl::VERSION = '0.010';
 }
 use strict;
 use warnings;
@@ -114,12 +114,12 @@ sub perl_is_same {
 
 	push @cmd, qw(-MConfig=myconfig -e print -e myconfig);
 
-	local $ENV{PATH} = '';
+	local $ENV{PATH} = join $Config{path_sep}, qw{/usr/bin /bin};
 	my $pid = open2(my($in, $out), @cmd);
 	binmode $in, ':crlf' if $^O eq 'MSWin32';
 	my $ret = do { local $/; <$in> };
 	waitpid $pid, 0;
-	return $ret eq Config->myconfig;
+	return lc $ret eq lc Config->myconfig;
 }
 
 sub Devel::FindPerl::Config::get {
@@ -143,7 +143,7 @@ Devel::FindPerl - Find the path to your perl
 
 =head1 VERSION
 
-version 0.009
+version 0.010
 
 =head1 SYNOPSIS
 
@@ -158,9 +158,9 @@ This module tries to find the path to the currently running perl. It (optionally
 
 =head2 find_perl_interpreter($config = ExtUtils::Config->new)
 
-This function will try really really hard to find the path to the perl running your program. I should be able to find it in most circumstances. Note that the result of this function will be cached for any serialized value of C<$config>.
+This function will try really really hard to find the path to the perl running your program. I should be able to find it in most circumstances. Note that the result of this function will be cached for any serialized value of C<$config>. It will return a list that usually but not necessarily is containing one element; additional elements are arguments that must be passed to that perl for correct functioning.
 
-=head2 perl_is_same($path)
+=head2 perl_is_same($path, @arguments)
 
 Tests if the perl in C<$path> is the same perl as the currently running one.
 

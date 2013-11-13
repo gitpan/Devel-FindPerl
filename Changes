@@ -1,5 +1,9 @@
 Revision history for Devel-FindPerl
 
+0.010     2013-11-13 23:13:15 Europe/Amsterdam
+          Add a non-empty PATH, to make *bsd happy
+          Compare configuration case-insensitively, to make Windows happy
+
 0.009     2013-11-07 23:00:55 Europe/Amsterdam
           find_perl_interpreter now return an array
 
