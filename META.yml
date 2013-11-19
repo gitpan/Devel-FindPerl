@@ -19,7 +19,7 @@ name: Devel-FindPerl
 provides:
   Devel::FindPerl:
     file: lib/Devel/FindPerl.pm
-    version: 0.010
+    version: 0.011
 recommends:
   ExtUtils::Config: 0.007
 requires:
@@ -36,4 +36,4 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Devel-FindPerl
   repository: git://github.com/Leont/devel-findperl.git
-version: 0.010
+version: 0.011
