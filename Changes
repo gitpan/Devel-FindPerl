@@ -1,5 +1,8 @@
 Revision history for Devel-FindPerl
 
+0.012     2013-11-20 14:57:15 Europe/Amsterdam
+          Minor fixes in tests
+
 0.011     2013-11-19 14:50:51 Europe/Amsterdam
           Fix other environmental variables in tainted mode.
 

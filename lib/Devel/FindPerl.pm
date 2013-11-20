@@ -1,6 +1,6 @@
 package Devel::FindPerl;
 {
-  $Devel::FindPerl::VERSION = '0.011';
+  $Devel::FindPerl::VERSION = '0.012';
 }
 use strict;
 use warnings;
@@ -143,7 +143,7 @@ Devel::FindPerl - Find the path to your perl
 
 =head1 VERSION
 
-version 0.011
+version 0.012
 
 =head1 SYNOPSIS
 
